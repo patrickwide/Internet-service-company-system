@@ -1,0 +1,26 @@
+{
+  "name": "bugTracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start1": "yarn server_1/index.js",
+    "dev1": "nodemon server_1/index.js",
+    "start2": "yarn server_2/index.js",
+    "dev2": "nodemon server_2/index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.7"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.19"
+  }
+}
