@@ -9,8 +9,8 @@ const IssueType = require("../types/Issue")
 const IssueQuery = {
     issues: {
         type: new GraphQLList(IssueType),
-        resolve(_parent, _args) {
-            return Issue.find();
+        async resolve(_parent, _args) {
+            return await Issue.find().populate('sender');
         }
     },
     issue: {
@@ -18,8 +18,8 @@ const IssueQuery = {
         args: {
             id: { type: GraphQLID }
         },
-        resolve(_parent, args) {
-            return Issue.findById(args.id);
+        async resolve(_parent, args) {
+            return await Issue.findById(args.id).populate('sender');
         },
     },
 }

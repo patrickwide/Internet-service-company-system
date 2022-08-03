@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
 
 const IssueSchema = new mongoose.Schema({
-    sender_id: {
+    sender: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Client',
+        required: true,
+        refPath: 'sender_on_model',
+    },
+    sender_on_model: {
+        type: String,
+        required: true,
+        enum: ['Client', 'Agent'],
     },
     status: {
         type: String,
