@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const IssueSchema = new mongoose.Schema({
     sender_id: {
@@ -10,9 +10,9 @@ const IssueSchema = new mongoose.Schema({
         enum: [ 'Open', 'Closed' ],
         default: 'Open',
     },
-    body: {
+    issue_body: {
         type: String,
     },
-}, { timestamps: true });
+},{ timestamps: true });
 
 module.exports = mongoose.model('Issue', IssueSchema);

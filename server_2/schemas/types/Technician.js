@@ -5,7 +5,7 @@ const {
 } = require('graphql');
 
 const TechnicianType = new GraphQLObjectType({
-    name: 'Technician',
+    name: 'TechnicianType',
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },

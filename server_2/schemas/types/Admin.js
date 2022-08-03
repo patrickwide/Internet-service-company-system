@@ -5,7 +5,7 @@ const {
 } = require('graphql');
 
 const AdminType = new GraphQLObjectType({
-    name: 'Admin',
+    name: 'AdminType',
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },

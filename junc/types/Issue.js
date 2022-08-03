@@ -1,53 +1,47 @@
-const {
-    GraphQLObjectType, 
-    GraphQLID, 
-    GraphQLString, 
-    GraphQLUnionType
-} = require('graphql');
+const { GraphQLObjectType, GraphQLID, GraphQLUnionType, GraphQLString } = require("graphql");
 
-const AdminType = require('./Admin');
-const AgentType = require('./Agent');
-const ClientType = require('./Client');
-const TechnicianType = require('./Technician');
+// types
+const ClientType = require("../../server_2/schemas/types/Client");
+const AgentType = require("../../server_2/schemas/types/Agent");
+const TechnicianType = require("../../server_2/schemas/types/Technician");
+const AdminType = require("../../server_2/schemas/types/Admin");
 
-const Client = require('../../database-helpers/models/Client')
-const Agent = require('../../database-helpers/models/Agent')
-const Technician = require('../../database-helpers/models/Technician')
-const Admin = require('../../database-helpers/models/Admin')
+// models
+const ClientModel = require("../../server_2/database/models/Client");
+const AgentModel = require("../../server_2/database/models/Agent");
+const TechnicianModel = require("../../server_2/database/models/Technician");
+const AdminModel = require("../../server_2/database/models/Admin");
 
-// * This Union object we use in our IssueType sender's field so when querying 
-// we can have a user if the object sender is a Client instance, Agent instance...  Admin instance
-const SenderIdUnion = new GraphQLUnionType({
+const IssueSenderUnion = new GraphQLUnionType({
     name: 'IssueSenderUnion',
-    types: [ ClientType ,AgentType ,TechnicianType , AdminType ],
+    types: [ ClientType, AgentType, TechnicianType, AdminType ],
     resolveType(value) {
-        if (value instanceof Client ) {
-            //* if the sender_id field from the IssueType is a client instance, return ClientType
+        console.log(value);
+        if (value instanceof ClientModel) {
             return ClientType;
-        }
-        else if (value instanceof Agent ) {
-            //* if the sender_id field from the IssueType is a Agent instance, return AgentType
+        } else if (value instanceof AgentModel) {
             return AgentType;
-        }
-        else if (value instanceof Technician ) {
-            //* if the sender_id field from the IssueType is a Technician instance, return TechnicianType
+        } else if (value instanceof TechnicianModel) {
             return TechnicianType;
-        }
-        else if (value instanceof Admin ) {
-            //* if the sender_id field from the IssueType is a Admin instance, return AdminType
+        } else if (value instanceof AdminModel) {
             return AdminType;
         } 
     }
 });
 
 const IssueType = new GraphQLObjectType({
-    name: 'Issue',
+    name: 'IssueType',
     fields: () => ({
         id: { type: GraphQLID },
-        sender: { type: SenderIdUnion },
+        sender: {
+            type: ClientType,
+            resolve(parent, _args) {
+                return ClientModel.findById(parent.sender);
+            }
+        },
         status: { type: GraphQLString },
-        issue_body: { type: GraphQLString },    
-    }),
+        issue_body: { type: GraphQLString },
+    })
 });
 
 module.exports = IssueType;

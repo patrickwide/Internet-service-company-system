@@ -5,7 +5,7 @@ const {
 } = require('graphql');
 
 const AgentType = new GraphQLObjectType({
-    name: 'Agent',
+    name: 'AgentType',
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },

@@ -1,33 +1,34 @@
-const { GraphQLEnumType, GraphQLNonNull, GraphQLInputObjectType, GraphQLID, GraphQLString } = require("graphql");
+const { 
+    GraphQLNonNull, 
+    GraphQLString, 
+    GraphQLID 
+} = require("graphql");
+
 const Issue = require("../../database/models/Issue");
 const IssueType = require("../types/Issue");
-
-const senderModelEnum = new GraphQLEnumType({
-    name: 'senderModelEnum',
-    values: {
-        CLIENT : { value: 'Client' },
-        AGENT : { value: 'Agent' },
-        TECHNICIAN : { value: 'Technician' },
-        ADMIN : { value: 'Admin' },
-    }
-});
+const Client = require("../../database/models/Client");
 
 const IssueMutation = {
+    // add issue
     addIssue: {
         type: IssueType,
         args: {
-            sender_id: { type: new GraphQLNonNull(GraphQLID) },
-            sender_model: { type: senderModelEnum },
-            issue_body: { type: GraphQLString },                
+            sender_id: { type: new GraphQLNonNull(GraphQLString) },
+            body: { type: new GraphQLNonNull(GraphQLString) },
         },
         async resolve(_parent, args) {
-            const issue =  new Issue({
+            const issue = new Issue({
                 sender_id: args.sender_id,
-                sender_model: args.sender_model,
-                issue_body: args.issue_body,                    
+                body: args.body,
             });
-            await issue.save();
-            return issue;
+
+            // let client_exists = Client.exists({ _id: args.sender_id });
+
+            // if (!client_exists) {
+            //     return new Error("Error: The client provided doesn't exist.");
+            // } else {
+            // }
+            return issue.save();
         }
     }
 }

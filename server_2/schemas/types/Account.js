@@ -11,7 +11,7 @@ const AgentType = require('./Agent');
 const ClientType = require('./Client');
 
 const AccountType = new GraphQLObjectType({
-    name: 'Account',
+    name: 'AccountType',
     fields: () => ({
         id: { type: GraphQLID },
         account_no: { type: GraphQLString },

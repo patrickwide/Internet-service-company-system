@@ -43,7 +43,7 @@ const SenderIdUnion = new GraphQLUnionType({
 });
 
 const MessageType = new GraphQLObjectType({
-    name: 'Message',
+    name: 'MessageType',
     fields: () => ({
         id: { type: GraphQLID },
         sender: { type: SenderIdUnion },

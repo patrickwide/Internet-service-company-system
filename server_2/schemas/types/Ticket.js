@@ -11,7 +11,7 @@ const Account = require("../../database/models/Account");
 const Technician = require("../../database/models/Technician");
 
 const TicketType = new GraphQLObjectType({
-    name:'Ticket',
+    name:'TicketType',
     fields: () => ({
         id: { type: GraphQLID },
         account: {
