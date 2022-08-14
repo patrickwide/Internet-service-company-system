@@ -55,7 +55,8 @@ const ClientMutation = {
             if (authentiactedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
-            
+            // do something with the authenticated user (add history)
+            console.log(authentiactedUser);
             const password = await hash(args.password, 10);
 
             const client = await new Client({
@@ -76,7 +77,27 @@ const ClientMutation = {
             email: { type: new GraphQLNonNull(GraphQLString) },
             password: { type: new GraphQLNonNull(GraphQLString) },
         },
-        async resolve(_parent, args, _context) {
+        async resolve(_parent, args, context) {
+
+
+            // A list of models(users) that are allowed for this request
+            const allowedUsers = [ Admin, Client ];
+
+            // authenticate the user
+            const authentiactedUser = await authenticateUser(allowedUsers, context);
+
+            // if user is authenticated
+            if (authentiactedUser === 1) {
+                throw new Error("User is not authentiacted.");
+            }
+
+            // if authenticated user is allowed for this request
+            if (authentiactedUser === 2 ) {
+                throw new Error("User is not authorized for this request.");
+            } 
+            // do something with the authenticated user (add history)
+            console.log(authentiactedUser.authenticatedUser);
+
 
             let client = await Client.exists({ email: args.email });
             if (!client) {

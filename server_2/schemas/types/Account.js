@@ -7,8 +7,8 @@ const {
 const Agent = require('../../database/models/Agent');
 const Client = require('../../database/models/Client');
 
-const AgentType = require('./Agent');
-const ClientType = require('./Client');
+const {AgentType} = require('./Agent');
+const {ClientType} = require('./Client');
 
 const AccountType = new GraphQLObjectType({
     name: 'AccountType',

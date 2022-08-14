@@ -9,7 +9,11 @@ async function authenticateUser(models ,request) {
             const model = models[i];
             const authenticatedUser = await model.findById(userId)
             if (authenticatedUser !== null) {
-                return authenticatedUser;
+                const userOnModel = model().constructor.modelName;
+                return {
+                    userOnModel,
+                    authenticatedUser
+                };
             }
         }
         // user is athenticated (Users token is not authorized for this request)

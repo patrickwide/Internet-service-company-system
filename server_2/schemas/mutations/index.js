@@ -35,26 +35,26 @@ const RootMutation = new GraphQLObjectType({
         deleteTechnician: TechnicianMutation.deleteTechnician,
         updateTechnician: TechnicianMutation.updateTechnician,
 
-        // // Account
-        // addAccount: AccountMutation.addAccount,
-        // deleteAccount: AccountMutation.deleteAccount,
-        // updateAccount: AccountMutation.updateAccount,
+        // Account
+        addAccount: AccountMutation.addAccount,
+        deleteAccount: AccountMutation.deleteAccount,
+        updateAccount: AccountMutation.updateAccount,
 
 
-        // // Ticket
-        // addTicket: TicketMutation.addTicket,
-        // deleteTicket: TicketMutation.deleteTicket,
-        // updateTicket: TicketMutation.updateTicket,
+        // Ticket
+        addTicket: TicketMutation.addTicket,
+        deleteTicket: TicketMutation.deleteTicket,
+        updateTicket: TicketMutation.updateTicket,
 
-        // // Issue
-        // addIssue: IssueMutation.addIssue,
-        // deleteIssue: IssueMutation.deleteIssue,
-        // updateIssue: IssueMutation.updateIssue,
+        // Issue
+        addIssue: IssueMutation.addIssue,
+        deleteIssue: IssueMutation.deleteIssue,
+        updateIssue: IssueMutation.updateIssue,
 
         // Message
-        // addMessage: MessageMutation.addMessage,
-        // deleteMessage: MessageMutation.deleteMessage,
-        // updateMessage: MessageMutation.deleteMessage,
+        addMessage: MessageMutation.addMessage,
+        deleteMessage: MessageMutation.deleteMessage,
+        updateMessage: MessageMutation.deleteMessage,
     }
 });
 

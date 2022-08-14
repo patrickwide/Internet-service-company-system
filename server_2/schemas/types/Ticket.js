@@ -5,7 +5,7 @@ const {
 } = require('graphql');
 
 const AccountType = require("./Account");
-const TechnicianType = require("./Technician");
+const {TechnicianType} = require("./Technician");
 
 const Account = require("../../database/models/Account");
 const Technician = require("../../database/models/Technician");

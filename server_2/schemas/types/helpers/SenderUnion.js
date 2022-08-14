@@ -3,16 +3,16 @@ const {
 } = require("graphql");
 
 const ClientModel = require('../../../database/models/Client');
-const ClientType = require('../../types/Client');
+const {ClientType} = require('../../types/Client');
 
 const AgentModel = require('../../../database/models/Agent');
-const AgentType = require('../../types/Agent');
+const {AgentType} = require('../../types/Agent');
 
 const AdminModel = require('../../../database/models/Admin');
-const AdminType = require('../../types/Admin');
+const {AdminType} = require('../../types/Admin');
 
 const TechnicianModel = require('../../../database/models/Technician');
-const TechnicianType = require('../../types/Technician');
+const {TechnicianType} = require('../../types/Technician');
 
 const SenderUnion = new GraphQLUnionType({
     name: 'SenderUnion',

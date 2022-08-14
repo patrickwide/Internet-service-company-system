@@ -32,20 +32,20 @@ const RootQuery = new GraphQLObjectType({
         technician:TechnicianQuery.technician,
 
         // // Account
-        // accounts: AccountQuery.accounts,
-        // account: AccountQuery.account,
+        accounts: AccountQuery.accounts,
+        account: AccountQuery.account,
         
         // // Ticket
-        // tickets: TicketQuery.tickets,
-        // ticket: TicketQuery.ticket,
+        tickets: TicketQuery.tickets,
+        ticket: TicketQuery.ticket,
 
         // // Issue
-        // issues: IssueQuery.issues,
-        // issue: IssueQuery.issue,
+        issues: IssueQuery.issues,
+        issue: IssueQuery.issue,
 
         // // Message
-        // messages: MessageQuery.messages,
-        // message: MessageQuery.message,
+        messages: MessageQuery.messages,
+        message: MessageQuery.message,
     },
 });
 

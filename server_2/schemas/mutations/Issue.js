@@ -13,7 +13,7 @@ const IssueMutation = {
     addIssue: {
         type: IssueType,
         args: {
-            sender: { type: new GraphQLNonNull(GraphQLString) },
+            // sender: { type: new GraphQLNonNull(GraphQLString) },
             sender_on_model: { 
                 type: new GraphQLEnumType({
                     name: 'addIssueSenderOnModel',
@@ -27,8 +27,24 @@ const IssueMutation = {
             },
             body: { type: new GraphQLNonNull(GraphQLString) },
         },
-        async resolve(_parent, args) {
+        async resolve(_parent, args, context) {
 
+            // A list of models(users) that are allowed for this request
+            const allowedUsers = [ Admin,Agent ];
+
+            // authenticate the user
+            const authentiactedUser = await authenticateUser(allowedUsers, context);
+
+            // if user is authenticated
+            if (authentiactedUser === 1) {
+                throw new Error("User is not authentiacted.");
+            }
+
+            // if authenticated user is allowed for this request
+            if (authentiactedUser === 2 ) {
+                throw new Error("User is not authorized for this request.");
+            } 
+            
             // check if sender exists
 
             let issue;
@@ -38,8 +54,8 @@ const IssueMutation = {
             try {
                 session.startTransaction();
                 issue = new Issue({
-                    sender: args.sender,
-                    sender_on_model: args.sender_on_model,
+                    sender: authentiactedUser.authentiactedUser._id,
+                    sender_on_model: authentiactedUser.userOnModel,
                     body: args.body,
                 });
                 await issue.save();
