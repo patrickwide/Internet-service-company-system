@@ -4,8 +4,12 @@ const {
     GraphQLID 
 } = require("graphql");
 
+// import Client model
 const Client = require("../../database/models/Client");
+
+// import client types
 const { ClientType, ClientAuthPayloadType } = require("../types/Client");
+
 // import JsonWebTokenError
 const { sign } = require('jsonwebtoken');
 
@@ -15,8 +19,15 @@ const { hash, compare } = require("bcrypt");
 // import dotenv
 require('dotenv').config();
 
+// import user authentication
+const authenticateUser = require("../auth")
 
-const authenticateClient = require("../auth")
+// import Admin model
+const Admin = require("../../database/models/Admin");
+
+// import Agent model
+const Agent = require("../../database/models/Agent");
+
 const ClientMutation = {
     // add client
     addClient: {
@@ -27,7 +38,23 @@ const ClientMutation = {
             phone: { type: new GraphQLNonNull(GraphQLString) },
             password: { type: new GraphQLNonNull(GraphQLString) },
         },
-        async resolve(_parent, args) {
+        async resolve(_parent, args, context) {
+
+            // A list of models(users) that are allowed for this request
+            const allowedUsers = [ Admin,Agent ];
+
+            // authenticate the user
+            const authentiactedUser = await authenticateUser(allowedUsers, context);
+
+            // if user is authenticated
+            if (authentiactedUser === 1) {
+                throw new Error("User is not authentiacted.");
+            }
+
+            // if authenticated user is allowed for this request
+            if (authentiactedUser === 2 ) {
+                throw new Error("User is not authorized for this request.");
+            } 
             
             const password = await hash(args.password, 10);
 
@@ -37,23 +64,25 @@ const ClientMutation = {
                 phone: args.phone,
                 password: password,
             }).save();
+
             client.token = sign({clientId: client._id}, process.env.APP_SECRET);
             return client;
         },
     },
-    // loging
+    // login client
     loginClient: {
         type: ClientAuthPayloadType,
         args: { 
             email: { type: new GraphQLNonNull(GraphQLString) },
             password: { type: new GraphQLNonNull(GraphQLString) },
         },
-        async resolve(_parent, args, context) {
+        async resolve(_parent, args, _context) {
+
             let client = await Client.exists({ email: args.email });
             if (!client) {
                 throw new Error("No such client found");
             }           
-            
+
             client = await Client.findById(client._id);
 
             const valid = await compare(args.password, client.password);
@@ -72,7 +101,23 @@ const ClientMutation = {
         args: {
             id: { type: new GraphQLNonNull(GraphQLID) },
         },
-        resolve(_parent, args) {
+        async resolve(_parent, args, context) {
+            // A list of models(users) that are allowed for this request
+            const allowedUsers = [ Admin ];
+
+            // authenticate the user
+            const authentiactedUser = await authenticateUser(allowedUsers, context);
+
+            // if user is authenticated
+            if (authentiactedUser === 1) {
+                throw new Error("User is not authentiacted.");
+            }
+
+            // if authenticated user is allowed for this request
+            if (authentiactedUser === 2 ) {
+                throw new Error("User is not authorized for this request.");
+            } 
+            
             return Client.findByIdAndRemove(args.id);
         }
     },
@@ -85,13 +130,24 @@ const ClientMutation = {
             email: { type: GraphQLString },
             phone: { type: GraphQLString },
         },
-        async resolve(_parent, args) {
+        async resolve(_parent, args, context) {
 
-            // const authentiactedClient = await authenticateClient(Client, context);
-            // if (authentiactedClient === null ) {
-            //     throw new Error("User is not authentiacted");
-            // }
+            // A list of models(users) that are allowed for this request
+            const allowedUsers = [ Client,Admin ];
 
+            // authenticate the user
+            const authentiactedUser = await authenticateUser(allowedUsers, context);
+
+            // if user is authenticated
+            if (authentiactedUser === 1) {
+                throw new Error("User is not authentiacted.");
+            }
+
+            // if authenticated user is allowed for this request
+            if (authentiactedUser === 2 ) {
+                throw new Error("User is not authorized for this request.");
+            } 
+            
             return Client.findByIdAndUpdate(
                 args.id,
                 {
