@@ -1,6 +1,6 @@
 const Technician = require("../../database/models/Technician");
 
-const TechnicianType = require("../types/Technician")
+const { TechnicianType } = require("../types/Technician")
 
 const {
     GraphQLID, 
@@ -25,6 +25,4 @@ const TechnicianQuery = {
     }
 };
 
-module.exports = {
-    TechnicianQuery,
-};
+module.exports = TechnicianQuery;

@@ -14,4 +14,19 @@ const ClientType = new GraphQLObjectType({
     }),
 });
 
-module.exports = ClientType;
+const ClientAuthPayloadType = new GraphQLObjectType({
+    name: 'ClientAuthPayloadType',
+    fields: () => ({
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
+        token: { type: GraphQLString },
+    }),
+});
+
+
+module.exports = { 
+    ClientType, 
+    ClientAuthPayloadType,
+};

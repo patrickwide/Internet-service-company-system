@@ -25,6 +25,4 @@ const AccountQuery = {
     },
 }
 
-module.exports = { 
-    AccountQuery 
-};
+module.exports = AccountQuery;

@@ -8,6 +8,8 @@ const TechnicianMutation = require('./Technician');
 const AccountMutation = require("./Account");
 const TicketMutation = require("./Ticket");
 const IssueMutation = require('./Issue');
+const MessageMutation = require("./Message");
+
 
 const RootMutation = new GraphQLObjectType({
     name: "RootMutationType",
@@ -16,7 +18,8 @@ const RootMutation = new GraphQLObjectType({
         addClient: ClientMutation.addClient,
         deleteClient: ClientMutation.deleteClient,
         updateClient: ClientMutation.updateClient,
-
+        loginClient: ClientMutation.loginClient,
+        
         // Admin
         addAdmin: AdminMutation.addAdmin,
         deleteAdmin: AdminMutation.deleteAdmin,
@@ -32,21 +35,26 @@ const RootMutation = new GraphQLObjectType({
         deleteTechnician: TechnicianMutation.deleteTechnician,
         updateTechnician: TechnicianMutation.updateTechnician,
 
-        // Account
-        addAccount: AccountMutation.addAccount,
-        deleteAccount: AccountMutation.deleteAccount,
-        updateAccount: AccountMutation.updateAccount,
+        // // Account
+        // addAccount: AccountMutation.addAccount,
+        // deleteAccount: AccountMutation.deleteAccount,
+        // updateAccount: AccountMutation.updateAccount,
 
 
-        // Ticket
-        addTicket: TicketMutation.addTicket,
-        deleteTicket: TicketMutation.deleteTicket,
-        updateTicket: TicketMutation.updateTicket,
+        // // Ticket
+        // addTicket: TicketMutation.addTicket,
+        // deleteTicket: TicketMutation.deleteTicket,
+        // updateTicket: TicketMutation.updateTicket,
 
-        // Issue
-        addIssue: IssueMutation.addIssue,
+        // // Issue
+        // addIssue: IssueMutation.addIssue,
         // deleteIssue: IssueMutation.deleteIssue,
         // updateIssue: IssueMutation.updateIssue,
+
+        // Message
+        // addMessage: MessageMutation.addMessage,
+        // deleteMessage: MessageMutation.deleteMessage,
+        // updateMessage: MessageMutation.deleteMessage,
     }
 });
 

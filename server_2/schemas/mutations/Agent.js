@@ -4,8 +4,8 @@ const {
     GraphQLID 
 } = require("graphql");
 
-const AgentType = require("../types/Agent");
 const Agent = require("../../database/models/Agent");
+const { AgentType } = require("../types/Agent");
 
 const AgentMutation = {
     // add agent
@@ -54,7 +54,7 @@ const AgentMutation = {
                         phone: args.phone,
                     }
                 },
-                { new: false },
+                { new: true },
             );
         },
     },

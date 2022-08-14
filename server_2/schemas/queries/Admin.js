@@ -1,6 +1,6 @@
 const Admin = require("../../database/models/Admin");
 
-const AdminType = require("../types/Admin")
+const { AdminType } = require("../types/Admin")
 
 const {
     GraphQLID, 
@@ -27,7 +27,4 @@ const AdminQuery = {
     }
 };
 
-module.exports = {
-    AdminQuery,
-};
-
+module.exports = AdminQuery;

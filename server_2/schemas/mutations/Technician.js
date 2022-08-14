@@ -4,8 +4,8 @@ const {
     GraphQLID 
 } = require("graphql");
 
-const TechnicianType = require("../types/Technician");
 const Technician = require("../../database/models/Technician");
+const { TechnicianType } = require("../types/Technician");
 
 const TechnicianMutation = {
     // add technician
@@ -54,7 +54,7 @@ const TechnicianMutation = {
                         phone: args.phone,
                     },
                 },
-                { new: false },
+                { new: true },
             );
         }
     }

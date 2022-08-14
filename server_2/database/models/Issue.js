@@ -9,7 +9,7 @@ const IssueSchema = new mongoose.Schema({
     sender_on_model: {
         type: String,
         required: true,
-        enum: ['Client', 'Agent'],
+        enum: ['Client', 'Agent', 'Admin', 'Technician'],
     },
     status: {
         type: String,
@@ -18,6 +18,7 @@ const IssueSchema = new mongoose.Schema({
     },
     body: {
         type: String,
+        required: true,
     },
 }, { timestamps: true });
 

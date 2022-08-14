@@ -24,6 +24,4 @@ const IssueQuery = {
     },
 }
 
-module.exports = {
-    IssueQuery
-};
+module.exports = IssueQuery;

@@ -1,6 +1,6 @@
 const Agent = require("../../database/models/Agent");
 
-const AgentType = require("../types/Agent")
+const { AgentType } = require("../types/Agent")
 
 
 const {
@@ -28,6 +28,4 @@ const AgentQuery = {
     }
 }
 
-module.exports = {
-    AgentQuery
-};
+module.exports = AgentQuery;

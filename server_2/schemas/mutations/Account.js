@@ -71,7 +71,7 @@ const AccountMutation = {
                         agent_id: args.agent_id,        
                     },
                 },
-                { new: false },
+                { new: true },
             );
         },
     }

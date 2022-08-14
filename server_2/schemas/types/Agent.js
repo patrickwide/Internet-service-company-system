@@ -14,4 +14,15 @@ const AgentType = new GraphQLObjectType({
     }),
 });
 
-module.exports = AgentType;
+const AgentAuthPayloadType = new GraphQLObjectType({
+    name: 'AgentAuthPayloadType',
+    fields: () => ({
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
+        token: { type: GraphQLString },
+    }),
+});
+
+module.exports = { AgentType, AgentAuthPayloadType };

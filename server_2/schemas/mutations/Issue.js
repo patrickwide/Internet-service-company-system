@@ -7,7 +7,6 @@ const {
 const mongoose = require('mongoose');
 const Issue = require("../../database/models/Issue");
 const IssueType = require("../types/Issue");
-const Client = require("../../database/models/Client");
 
 const IssueMutation = {
     // add issue
@@ -17,22 +16,20 @@ const IssueMutation = {
             sender: { type: new GraphQLNonNull(GraphQLString) },
             sender_on_model: { 
                 type: new GraphQLEnumType({
-                    name: 'SenderOnModel',
+                    name: 'addIssueSenderOnModel',
                     values: {
                         client: { value: 'Client' },
                         agent: { value: 'Agent' },
+                        admin: { value: 'Admin' },
+                        technician: { value: 'Technician' },
                     },
                 }) 
             },
             body: { type: new GraphQLNonNull(GraphQLString) },
         },
         async resolve(_parent, args) {
-            // let client_exists = Client.exists({ _id: args.sender });
 
-            // if (!client_exists) {
-            //     return new Error("Error: The client provided doesn't exist.");
-            // } else {
-            // }
+            // check if sender exists
 
             let issue;
 
@@ -53,6 +50,58 @@ const IssueMutation = {
             }
             session.endSession();
             return issue.populate('sender');
+        },
+    },
+    // delete issue
+    deleteIssue: {
+        type: IssueType,
+        args: { id: { type: GraphQLID } },
+        async resolve(_parent, args) {
+            // check if sender exists
+
+            let issue;
+
+            const session = await mongoose.startSession();
+            
+            try {
+                session.startTransaction();
+                await Issue.findByIdAndRemove(args.id);
+                session.commitTransaction();
+            } catch (error) {
+                session.abortTransaction();
+                throw error;
+            }
+            session.endSession();
+            return issue.populate('sender');
+        }
+    },
+    // update issue
+    updateIssue: {
+        type: IssueType,
+        args: {
+            id: { type: GraphQLID }, 
+            status: { 
+                type: new GraphQLEnumType({
+                    name: 'updateIssueStatus',
+                    values: {
+                        open: { value: 'Open' },
+                        closed: { value: 'Closed' },
+                    },
+                }) 
+            },
+            body: { type: GraphQLString },    
+        }, 
+        resolve(_parent, args) {
+            return Issue.findByIdAndUpdate(
+                args.id,
+                {
+                    $set: {
+                        status:args.status,
+                        body:args.body
+                    }
+                },
+                { new: true },
+            ).populate('sender');
         }
     }
 }

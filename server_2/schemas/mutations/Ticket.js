@@ -107,7 +107,7 @@ const TicketMutation = {
                         technician_id: args.technician_id,            
                     }
                 },
-                { new: false },
+                { new: true },
             );
         },
     }

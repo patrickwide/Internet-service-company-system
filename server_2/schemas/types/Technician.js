@@ -14,5 +14,15 @@ const TechnicianType = new GraphQLObjectType({
     }),
 });
 
+const TechnicianAuthPayloadType = new GraphQLObjectType({
+    name: 'TechnicianAuthPayloadType',
+    fields: () => ({
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
+        token: { type: GraphQLString },
+    }),
+});
 
-module.exports = TechnicianType;
+module.exports = { TechnicianType, TechnicianAuthPayloadType };

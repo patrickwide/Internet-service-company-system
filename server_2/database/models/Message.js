@@ -1,25 +1,33 @@
 const mongoose = require("mongoose");
 
 const MessageSchema = new mongoose.Schema({
-    sender_id: {
+    sender: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        refPath: 'sender_type',
+        refPath: 'sender_on_model',
     },
-    sender_type: {
+    sender_on_model: {
         type: String,
         required: true,
-        enum: [ 'Client' , 'Agent' ,'Technician' ,'Admin' ]
+        enum: ['Client', 'Agent', 'Admin', 'Technician'],
     },
-    issue_id: {
+    issue: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Issue',
     },
-    massage_body: {
+    reply_to: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Message',
+    },
+    body: {
         type: String,
         required: true,
     },
+    tags: [{
+        type: String, // @someone 
+        required: false,
+        unique: false,
+    }],
 } ,{ timestamps: true });
 
 module.exports = mongoose.model('Message', MessageSchema);
- 

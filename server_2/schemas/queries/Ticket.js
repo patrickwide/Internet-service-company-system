@@ -24,6 +24,4 @@ const TicketQuery = {
     },
 };
 
-module.exports = {
-    TicketQuery,
-};
+module.exports = TicketQuery;

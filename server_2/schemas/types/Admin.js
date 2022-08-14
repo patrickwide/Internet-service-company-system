@@ -14,4 +14,16 @@ const AdminType = new GraphQLObjectType({
     }),
 });
 
-module.exports = AdminType;
+const AdminAuthPayloadType = new GraphQLObjectType({
+    name: 'AdminAuthPayloadType',
+    fields: () => ({
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
+        token: { type: GraphQLString },
+    }),
+});
+
+
+module.exports = { AdminType, AdminAuthPayloadType };

@@ -1,6 +1,6 @@
 const Client = require("../../database/models/Client");
 
-const ClientType = require("../types/Client")
+const { ClientType } = require("../types/Client")
 
 const {
     GraphQLID, 
@@ -23,6 +23,4 @@ const ClientQuery = {
     },
 };
 
-module.exports = {
-    ClientQuery,
-};
+module.exports = ClientQuery;

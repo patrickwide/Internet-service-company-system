@@ -1,11 +1,12 @@
 // schemas
-const { ClientQuery } = require("./Client");
-const { AdminQuery } = require("./Admin");
-const { AgentQuery } = require("./Agent");
-const { AccountQuery } = require("./Account");
-const { TechnicianQuery } = require("./Technician");
-const { TicketQuery } = require("./Ticket");
-const { IssueQuery } = require("./Issue");
+const ClientQuery = require("./Client");
+const AdminQuery = require("./Admin");
+const AgentQuery = require("./Agent");
+const AccountQuery = require("./Account");
+const TechnicianQuery = require("./Technician");
+const TicketQuery = require("./Ticket");
+const IssueQuery = require("./Issue");
+const MessageQuery = require("./Message");
 
 const {
     GraphQLObjectType, 
@@ -30,17 +31,21 @@ const RootQuery = new GraphQLObjectType({
         technicians:TechnicianQuery.technicians,
         technician:TechnicianQuery.technician,
 
-        // Account
-        accounts: AccountQuery.accounts,
-        account: AccountQuery.account,
+        // // Account
+        // accounts: AccountQuery.accounts,
+        // account: AccountQuery.account,
         
-        // Ticket
-        tickets: TicketQuery.tickets,
-        ticket: TicketQuery.ticket,
+        // // Ticket
+        // tickets: TicketQuery.tickets,
+        // ticket: TicketQuery.ticket,
 
-        // Issue
-        issues: IssueQuery.issues,
-        issue: IssueQuery.issue,
+        // // Issue
+        // issues: IssueQuery.issues,
+        // issue: IssueQuery.issue,
+
+        // // Message
+        // messages: MessageQuery.messages,
+        // message: MessageQuery.message,
     },
 });
 

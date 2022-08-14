@@ -5,7 +5,7 @@ const {
 } = require("graphql");
 
 const Admin = require("../../database/models/Admin");
-const AdminType = require("../types/Admin");
+const { AdminType } = require("../types/Admin");
 
 const AdminMutation = {
     // add admin
@@ -54,7 +54,7 @@ const AdminMutation = {
                         phone: args.phone,
                     }
                 },
-                { new: false },
+                { new: true },
             );
         }
     }
