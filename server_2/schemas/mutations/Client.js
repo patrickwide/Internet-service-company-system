@@ -44,19 +44,19 @@ const ClientMutation = {
             const allowedUsers = [ Admin,Agent ];
 
             // authenticate the user
-            const authentiactedUser = await authenticateUser(allowedUsers, context);
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
 
             // if user is authenticated
-            if (authentiactedUser === 1) {
+            if (authenticatedUser === 1) {
                 throw new Error("User is not authentiacted.");
             }
 
             // if authenticated user is allowed for this request
-            if (authentiactedUser === 2 ) {
+            if (authenticatedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
             // do something with the authenticated user (add history)
-            console.log(authentiactedUser);
+            console.log(authenticatedUser);
             const password = await hash(args.password, 10);
 
             const client = await new Client({
@@ -84,19 +84,19 @@ const ClientMutation = {
             const allowedUsers = [ Admin, Client ];
 
             // authenticate the user
-            const authentiactedUser = await authenticateUser(allowedUsers, context);
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
 
             // if user is authenticated
-            if (authentiactedUser === 1) {
+            if (authenticatedUser === 1) {
                 throw new Error("User is not authentiacted.");
             }
 
             // if authenticated user is allowed for this request
-            if (authentiactedUser === 2 ) {
+            if (authenticatedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
             // do something with the authenticated user (add history)
-            console.log(authentiactedUser.authenticatedUser);
+            console.log(authenticatedUser.authenticatedUser);
 
 
             let client = await Client.exists({ email: args.email });
@@ -127,15 +127,15 @@ const ClientMutation = {
             const allowedUsers = [ Admin ];
 
             // authenticate the user
-            const authentiactedUser = await authenticateUser(allowedUsers, context);
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
 
             // if user is authenticated
-            if (authentiactedUser === 1) {
+            if (authenticatedUser === 1) {
                 throw new Error("User is not authentiacted.");
             }
 
             // if authenticated user is allowed for this request
-            if (authentiactedUser === 2 ) {
+            if (authenticatedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
             
@@ -157,15 +157,15 @@ const ClientMutation = {
             const allowedUsers = [ Client,Admin ];
 
             // authenticate the user
-            const authentiactedUser = await authenticateUser(allowedUsers, context);
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
 
             // if user is authenticated
-            if (authentiactedUser === 1) {
+            if (authenticatedUser === 1) {
                 throw new Error("User is not authentiacted.");
             }
 
             // if authenticated user is allowed for this request
-            if (authentiactedUser === 2 ) {
+            if (authenticatedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
             

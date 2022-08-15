@@ -8,44 +8,40 @@ const mongoose = require('mongoose');
 const Issue = require("../../database/models/Issue");
 const IssueType = require("../types/Issue");
 
+// import models
+const Client = require("../../database/models/Client");
+const Admin = require("../../database/models/Admin");
+const Agent = require("../../database/models/Agent");
+
+// import auth
+const authenticateUser = require("../auth/");
+
 const IssueMutation = {
     // add issue
     addIssue: {
         type: IssueType,
         args: {
-            // sender: { type: new GraphQLNonNull(GraphQLString) },
-            sender_on_model: { 
-                type: new GraphQLEnumType({
-                    name: 'addIssueSenderOnModel',
-                    values: {
-                        client: { value: 'Client' },
-                        agent: { value: 'Agent' },
-                        admin: { value: 'Admin' },
-                        technician: { value: 'Technician' },
-                    },
-                }) 
-            },
             body: { type: new GraphQLNonNull(GraphQLString) },
         },
         async resolve(_parent, args, context) {
-
+            
+            // [check if sender exists]
+            
             // A list of models(users) that are allowed for this request
-            const allowedUsers = [ Admin,Agent ];
-
+            const allowedUsers = [ Admin,Agent,Client ];
+            
             // authenticate the user
-            const authentiactedUser = await authenticateUser(allowedUsers, context);
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
 
             // if user is authenticated
-            if (authentiactedUser === 1) {
+            if (authenticatedUser === 1) {
                 throw new Error("User is not authentiacted.");
             }
 
             // if authenticated user is allowed for this request
-            if (authentiactedUser === 2 ) {
+            if (authenticatedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
-            
-            // check if sender exists
 
             let issue;
 
@@ -54,8 +50,8 @@ const IssueMutation = {
             try {
                 session.startTransaction();
                 issue = new Issue({
-                    sender: authentiactedUser.authentiactedUser._id,
-                    sender_on_model: authentiactedUser.userOnModel,
+                    sender: authenticatedUser.authenticatedUser._id,
+                    sender_on_model: authenticatedUser.authenticateduserOnModel,
                     body: args.body,
                 });
                 await issue.save();
@@ -72,8 +68,31 @@ const IssueMutation = {
     deleteIssue: {
         type: IssueType,
         args: { id: { type: GraphQLID } },
-        async resolve(_parent, args) {
-            // check if sender exists
+        async resolve(_parent, args, context) {
+            
+            // [check if sender exists]
+            
+            // A list of models(users) that are allowed for this request
+            const allowedUsers = [ Admin,Agent,Client ];
+            
+            // authenticate the user
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
+
+            // if user is authenticated
+            if (authenticatedUser === 1) {
+                throw new Error("User is not authentiacted.");
+            }
+
+            // if authenticated user is allowed for this request
+            if (authenticatedUser === 2 ) {
+                throw new Error("User is not authorized for this request.");
+            } 
+
+            // check if user did post the message
+            const message = await Issue.findById(args.id);
+            if (authenticatedUser.authenticatedUser._id.toString() !== message.sender.toString()) {
+                throw new Error("User is not authorized for this request.");
+            }
 
             let issue;
 
@@ -107,7 +126,32 @@ const IssueMutation = {
             },
             body: { type: GraphQLString },    
         }, 
-        resolve(_parent, args) {
+        async resolve(_parent, args, context) {
+
+            // [check if sender exists]
+
+            // A list of models(users) that are allowed for this request
+            const allowedUsers = [ Admin,Agent,Client ];
+
+            // authenticate the user
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
+
+            // if user is authenticated
+            if (authenticatedUser === 1) {
+                throw new Error("User is not authentiacted.");
+            }
+
+            // if authenticated user is allowed for this request
+            if (authenticatedUser === 2 ) {
+                throw new Error("User is not authorized for this request.");
+            } 
+
+            // check if user did post the message
+            const message = await Issue.findById(args.id);
+            if (authenticatedUser.authenticatedUser._id.toString() !== message.sender.toString()) {
+                throw new Error("User is not authorized for this request.");
+            }
+
             return Issue.findByIdAndUpdate(
                 args.id,
                 {

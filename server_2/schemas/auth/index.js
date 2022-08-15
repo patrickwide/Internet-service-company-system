@@ -9,10 +9,10 @@ async function authenticateUser(models ,request) {
             const model = models[i];
             const authenticatedUser = await model.findById(userId)
             if (authenticatedUser !== null) {
-                const userOnModel = model().constructor.modelName;
+                const authenticateduserOnModel = model().constructor.modelName;
                 return {
-                    userOnModel,
-                    authenticatedUser
+                    authenticatedUser,
+                    authenticateduserOnModel,
                 };
             }
         }

@@ -25,15 +25,15 @@ const AdminMutation = {
             const allowedUsers = [ Admin ];
 
             // authenticate the user
-            const authentiactedUser = await authenticateUser(allowedUsers, context);
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
 
             // if user is authenticated
-            if (authentiactedUser === 1) {
+            if (authenticatedUser === 1) {
                 throw new Error("User is not authentiacted.");
             }
 
             // if authenticated user is allowed for this request
-            if (authentiactedUser === 2 ) {
+            if (authenticatedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
 
@@ -82,15 +82,15 @@ const AdminMutation = {
             const allowedUsers = [ Admin ];
 
             // authenticate the user
-            const authentiactedUser = await authenticateUser(allowedUsers, context);
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
 
             // if user is authenticated
-            if (authentiactedUser === 1) {
+            if (authenticatedUser === 1) {
                 throw new Error("User is not authentiacted.");
             }
 
             // if authenticated user is allowed for this request
-            if (authentiactedUser === 2 ) {
+            if (authenticatedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
 
@@ -112,15 +112,15 @@ const AdminMutation = {
             const allowedUsers = [ Admin ];
 
             // authenticate the user
-            const authentiactedUser = await authenticateUser(allowedUsers, context);
+            const authenticatedUser = await authenticateUser(allowedUsers, context);
 
             // if user is authenticated
-            if (authentiactedUser === 1) {
+            if (authenticatedUser === 1) {
                 throw new Error("User is not authentiacted.");
             }
 
             // if authenticated user is allowed for this request
-            if (authentiactedUser === 2 ) {
+            if (authenticatedUser === 2 ) {
                 throw new Error("User is not authorized for this request.");
             } 
             
