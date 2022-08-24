@@ -4,11 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start1": "yarn server_1/index.js",
-    "dev1": "nodemon server_1/index.js",
-    "start2": "yarn server_2/index.js",
-    "dev2": "nodemon server_2/index.js",
-    "test2": "mocha test/*test.js"
+    "start": "yarn server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "mocha test/*test.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

@@ -1,0 +1,26 @@
+[
+	{
+		"name":"team1",
+		"category":"Installation",
+		"technicians":["62fcb0ab7c1d08836982c5f6","62fcb0ab7c1d08836982c5f7"],
+		"slot":"",
+	},
+	{
+		"name":"team2",
+		"category":"Installation",
+		"technicians":["62fcb0ab7c1d08836982c5f7"],
+		"slot":"",
+	},
+	{
+		"name":"team3",
+		"category":"Installation",
+		"technicians":["62fcb0ab7c1d08836982c5f8"],
+		"slot":"",
+	},
+	{
+		"name":"team4",
+		"category":"Installation",
+		"technicians":["62fcb0ab7c1d08836982c5f9"],
+		"slot":"",
+	},
+]

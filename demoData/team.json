@@ -1,0 +1,26 @@
+[
+	{
+		"name":"team1",
+		"category":"Installation",
+		"technicians":[""],
+		"slot":"",
+	},
+	{
+		"name":"team2",
+		"category":"Installation",
+		"technicians":[""],
+		"slot":"",
+	},
+	{
+		"name":"team3",
+		"category":"Installation",
+		"technicians":[""],
+		"slot":"",
+	},
+	{
+		"name":"team4",
+		"category":"Installation",
+		"technicians":[""],
+		"slot":"",
+	},
+]

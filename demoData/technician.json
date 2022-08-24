@@ -1,0 +1,26 @@
+[
+	{
+		"name": "technician1",
+		"email": "technician1@gmail.com",
+		"phone": "0722919097",
+		"password": "123456789",
+	},
+	{
+		"name": "technician2",
+		"email": "technician2@gmail.com",
+		"phone": "0722919095",
+		"password": "123456789",
+	},
+	{
+		"name": "technician3",
+		"email": "technician3@gmail.com",
+		"phone": "0722919091",
+		"password": "123456789",
+	},
+	{
+		"name": "technician4",
+		"email": "technician4@gmail.com",
+		"phone": "0722919092",
+		"password": "123456789",
+	},
+]
