@@ -31,7 +31,7 @@ const RootQuery = new GraphQLObjectType({
         // Technician
         technicians:TechnicianQuery.technicians,
         technician:TechnicianQuery.technician,
-
+        
         // Account
         accounts: AccountQuery.accounts,
         account: AccountQuery.account,
@@ -44,9 +44,9 @@ const RootQuery = new GraphQLObjectType({
         issues: IssueQuery.issues,
         issue: IssueQuery.issue,
 
-        // // Message
-        // messages: MessageQuery.messages,
-        // message: MessageQuery.message,
+        // Message
+        messages: MessageQuery.messages,
+        message: MessageQuery.message,
 
         // Team
         teams: TeamQuery.Teams,

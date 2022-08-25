@@ -7,8 +7,7 @@ const MessageQuery = {
     messages: {
         type: new GraphQLList(MessageType),
         async resolve(_parent, _args) {
-            return await MessageModel.find();
-            // .populate('sender');
+            return await MessageModel.find().populate(["sender", "primary_reply"]);
         }
     },
     message: {
@@ -17,8 +16,7 @@ const MessageQuery = {
             id: { type:GraphQLID }
         },
         async resolve(_parent, args) {
-            return await MessageModel.findById(args.id);
-            // .populate('sender');
+            return await MessageModel.findById(args.id).populate(["sender", "primary_reply"]);
         }
     }
 }

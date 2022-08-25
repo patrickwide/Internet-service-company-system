@@ -14,7 +14,7 @@ const TicketType = require("../Ticket");
 
 const ReplyUnion = new GraphQLUnionType({
     name: 'ReplyUnion',
-    types:[ MessageType, IssueType, TicketType ],
+    types:[ IssueType, TicketType ],
     resolveType(value) {
         if (value instanceof MessageModel) {
             return 'MessageType';

@@ -19,12 +19,15 @@ const MessageType = new GraphQLObjectType({
             type: SenderUnion,
         },
         sender_on_model: {
-            type: GraphQLString 
+            type: GraphQLString,
         },
-        reply: {
+        primary_reply: {
             type: ReplyUnion,
         },
-        reply_on_model: {
+        primary_reply_on_model: {
+            type: GraphQLString,
+        },
+        secondary_reply: {
             type: GraphQLString,
         },
         tags: {
@@ -35,33 +38,5 @@ const MessageType = new GraphQLObjectType({
         },
     }),
 });
-
-const StartMessageType = new GraphQLObjectType({
-    name:"PrevMessageType",
-    fields: () => ({
-        id: {
-            type: GraphQLID 
-        },
-        sender: {
-            type: SenderUnion,
-        },
-        sender_on_model: {
-            type: GraphQLString 
-        },
-        reply: {
-            type: ReplyUnion,
-        },
-        reply_on_model: {
-            type: GraphQLString,
-        },
-        tags: {
-            type: new GraphQLList(GraphQLString),
-        },
-        body: {
-            type: GraphQLString 
-        },
-
-    })
-})
 
 module.exports = MessageType;

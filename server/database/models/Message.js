@@ -11,15 +11,20 @@ const MessageSchema = new mongoose.Schema({
         required: true,
         enum: ['Client', 'Agent', 'Admin', 'Technician'],
     },
-    reply: {
+    primary_reply: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        refPath: 'reply_on_model',
+        refPath: 'primary_reply_on_model',
     },
-    reply_on_model: {
+    primary_reply_on_model: {
         type: String,
         required: true,
-        enum: ['Message', 'Issue', 'Ticket'],
+        enum: ['Issue', 'Ticket'],
+    },
+    secondary_reply: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref:'Message',
     },
     tags: [{
         type: String, // @username 

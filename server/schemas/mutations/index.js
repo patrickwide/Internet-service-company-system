@@ -54,10 +54,10 @@ const RootMutation = new GraphQLObjectType({
         deleteIssue: IssueMutation.deleteIssue,
         updateIssue: IssueMutation.updateIssue,
 
-        // // Message
-        // addMessage: MessageMutation.addMessage,
-        // deleteMessage: MessageMutation.deleteMessage,
-        // updateMessage: MessageMutation.updateMessage,
+        // Message
+        addMessage: MessageMutation.addMessage,
+        deleteMessage: MessageMutation.deleteMessage,
+        updateMessage: MessageMutation.updateMessage,
 
         // Team
         addTeam: TeamMutation.addTeam,
