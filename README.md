@@ -1,48 +1,33 @@
 # Ticketing application
 
-## Database 
-- A password will have to be created the first time the app launches that will be used to join admins
+- An internet service company system to track tickets, take issues from both there clients, agents and technician
 
-### Clients
-- Client can post a ticket
-``` json
-// Name
-// Email
-// Phone
-// Account
-// Location
-// Creator
-```
-### Admins
-- Admin Read everything going on in the system 
-- Can add/Remove a Technician
-- Can add/Remove an Agent
+### To run this API you need
 
-``` json
-// Name
-// Email
-// Phone
+- mongod - (optional: if you are using a localhost mongo database, other option may apply)
+- node -
+- Yarn -
+
+## Step 1 (Run In New Terminal/Shell/CMD)
+
+- Start the localhost mongo database
+
+```shell
+    mongod
 ```
-### Agents 
-- Agent can add clients
-- Can post a ticket on behalf of the client
-``` json
-// Name
-// Email
-// Phone
+
+## Step 2 (Run In New Terminal/Shell/CMD)
+
+- Start the server in dev mode
+
+```shell
+    yarn dev
 ```
-### Technicians
-- Technicians can take a ticket 
-- Can only take a ticket if he/she does't have a ticket
-``` json
-// Name
-// Email
-// Phone
-// Slot
-```
-### Tickets
-``` json
-// Account
-// Status
-// Note - ( enum: [ 'Not Taken','Taken', 'Done' ] )
+
+## Step 3 (Run In New Terminal/Shell/CMD)
+
+- Run the test to check if every thing works okay
+
+```shell
+    yarn test
 ```

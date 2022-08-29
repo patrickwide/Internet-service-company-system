@@ -620,6 +620,7 @@ describe("GraphQL", () => {
       });
   });
 
+  // View issue
   it("View issue", (done) => {
     request
       .post("graphql")
@@ -635,6 +636,7 @@ describe("GraphQL", () => {
       });
   });
 
+  // View issue
   it("View issue", (done) => {
     request
       .post("graphql")
@@ -650,6 +652,7 @@ describe("GraphQL", () => {
       });
   });
 
+  // Update issue
   it("Update issue", (done) => {
     request
       .post("graphql")
@@ -672,7 +675,7 @@ describe("GraphQL", () => {
       .post("graphql")
       .send({
         query: `mutation { 
-          addMessage(primary_reply:"${issue}", tags:["@patrickeide","@someone"], body:"Hello, world!") { id sender { ...on AgentType { id name email phone } ...on  ClientType{ id name email phone } ...on  AdminType{ id name email phone } ...on  TechnicianType{ id name email phone } } primary_reply { ...on IssueType { id } ...on TicketType { id } } secondary_reply tags body } }`,
+          addMessage(primary_reply:"${issue}", tags:["@patrickwide","@someone","@username"], body:"Hello, world!") { id sender { ...on AgentType { id name email phone } ...on  ClientType{ id name email phone } ...on  AdminType{ id name email phone } ...on  TechnicianType{ id name email phone } } primary_reply { ...on IssueType { id } ...on TicketType { id } } secondary_reply tags body } }`,
       })
       .set("Authorization", `Bearer ${DEFAULT_ADMIN_TOKEN}`)
       .expect(200)
@@ -684,7 +687,8 @@ describe("GraphQL", () => {
       });
   });
 
-  it("View message", (done) => {
+  // View messages
+  it("View messages", (done) => {
     request
       .post("graphql")
       .send({
@@ -699,7 +703,8 @@ describe("GraphQL", () => {
       });
   });
 
-  it("View issue", (done) => {
+  // View message
+  it("View message", (done) => {
     request
       .post("graphql")
       .send({
@@ -714,17 +719,21 @@ describe("GraphQL", () => {
       });
   });
 
-  // it('Update issue', (done) => {
-  //     request.post('graphql')
-  //     .send({ query: `mutation { updateMessage(id:"${message}") { id sender { ...on AgentType { id name email phone } ...on  ClientType{ id name email phone } ...on  AdminType{ id name email phone } ...on  TechnicianType{ id name email phone } } } }` })
-  //     .set('Authorization', `Bearer ${DEFAULT_ADMIN_TOKEN}`)
-  //     .expect(200)
-  //     .end((err, res) => {
-  //         if (err) return done(err);
-  //         console.log(res.body.data);
-  //         done();
-  //     });
-  // });
+  // Update message
+  it("Update message", (done) => {
+    request
+      .post("graphql")
+      .send({
+        query: `mutation { updateMessage(id:"${message}", body:"Hello!") {  id sender { ...on AgentType { id name email phone } ...on  ClientType{ id name email phone } ...on  AdminType{ id name email phone } ...on  TechnicianType{ id name email phone } } primary_reply { ...on IssueType { id } ...on TicketType { id } } secondary_reply tags body } }`,
+      })
+      .set("Authorization", `Bearer ${DEFAULT_ADMIN_TOKEN}`)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        console.log(res.body.data);
+        done();
+      });
+  });
 
   // Delete admin
   it("Delete admin", (done) => {
@@ -855,6 +864,7 @@ describe("GraphQL", () => {
   });
 
   // Delete message [DEFAULT_ADMIN_TOKEN]
+  // Note: primary_reply doen't populate in the testing but works in using thunder client (Yet to fix)
   it("Delete message [DEFAULT_ADMIN_TOKEN]", (done) => {
     request
       .post("graphql")
@@ -869,235 +879,4 @@ describe("GraphQL", () => {
         done();
       });
   });
-
-  // let ticket;
-  // it('Add ticket', (done) => {
-
-  //     request.post('graphql')
-  //     .send({ query: `
-  //         mutation {
-  //             addAccount(account_no: "222-222-222", client_id: "${client}", location: "4000-4444-4000", agent_id: "${agent}") {
-  //                 id
-  //                 account_no
-  //                 client {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //                 location
-  //                 agent {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //             }
-  //         }
-  //     ` })
-  //     .expect(200)
-  //     .end((err, res) => {
-  //         if (err) return done(err);
-  //         account = res.body.data.addAccount.id;
-  //         // console.log(res.body.data);
-  //     });
-
-  //     request.post('graphql')
-  //     .send({ query: `mutation {  addTechnician(name:"technician1", email:"technician1@gmail.com", phone:"5555-5555-5555") { id name email phone } }` })
-  //     .expect(200)
-  //     .end((err, res) => {
-  //         if (err) return done(err);
-  //         technician = res.body.data.addTechnician.id;
-  //         // console.log(res.body.data);
-  //     });
-
-  //     request.post('graphql')
-  //     .send({ query: `
-  //         mutation {
-  //             addTicket(account_id:"${account}",category:install,client_available_date:"3399-9090-6309",client_available_time:"3399-9090-6309",note:"Hello world",technician_id:"${technician}") {
-  // id
-  // account {
-  //     id
-  //     account_no
-  //     client {
-  //         id
-  //         name
-  //         email
-  //         phone
-  //     }
-  //     location
-  //     agent {
-  //         id
-  //         name
-  //         email
-  //         phone
-  //     }
-  // }
-  // category
-  // client_available_date
-  // client_available_time
-  // note
-  //                 technician {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //             }
-  //         }
-  //     ` })
-  //     .expect(200)
-  //     .end((err, res) => {
-  //         if (err) return done(err);
-  //         ticket = res.body.data.addTicket.id;
-  //         // console.log(res.body.data);
-  //         done();
-  //     });
-  // });
-
-  // it('Return all tickets.', (done) => {
-  //     request.post('graphql')
-  //     .send({ query: `
-  //     {
-  //         tickets {
-  //             account {
-  //                 id
-  //                 account_no
-  //                 client {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //                 location
-  //                 agent {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //             }
-  //             category
-  //             client_available_date
-  //             client_available_time
-  //             note
-  //             technician {
-  //                 id
-  //                 name
-  //                 email
-  //                 phone
-  //             }
-  //         }
-  //     }
-  //     ` })
-  //     .expect(200)
-  //     .end((err, res) => {
-  //         if (err) return done(err);
-  //         // console.log(res.body.data);
-  //         done();
-  //     });
-  // });
-
-  // it('Return a single ticket.', (done) => {
-  //     request.post('graphql')
-  //     .send({ query: `
-  //     {
-  //         ticket(id: "${ticket}") {
-  //             account {
-  //                 id
-  //                 account_no
-  //                 client {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //                 location
-  //                 agent {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //             }
-  //             category
-  //             client_available_date
-  //             client_available_time
-  //             note
-  //             technician {
-  //                 id
-  //                 name
-  //                 email
-  //                 phone
-  //             }
-  //         }
-  //     }
-  //     ` })
-  //     .expect(200)
-  //     .end((err, res) => {
-  //         if (err) return done(err);
-  //         // console.log(res.body.data);
-  //         done();
-  //     });
-  // });
-
-  // it('Delete ticket.', (done) => {
-  //     request.post('graphql')
-  //     .send({ query: `
-  //     mutation {
-  //         deleteTicket(id: "${ticket}") {
-  //             account {
-  //                 id
-  //                 account_no
-  //                 client {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //                 location
-  //                 agent {
-  //                     id
-  //                     name
-  //                     email
-  //                     phone
-  //                 }
-  //             }
-  //             category
-  //             client_available_date
-  //             client_available_time
-  //             note
-  //             technician {
-  //                 id
-  //                 name
-  //                 email
-  //                 phone
-  //             }
-  //         }
-  //     }
-  //     ` })
-  //     .expect(200)
-  //     .end((err, res) => {
-  //         if (err) return done(err);
-  //         // console.log(res.body.data);
-  //         done();
-  //     });
-  // });
 });
-
-// const request = require('supertest');
-// const express = require('express');
-
-// const app = express();
-
-// const TOKEN = 'some_token';
-
-// describe('POST /some-url', function() {
-//   it('does something', function(done) {
-//     request(app)
-//       .post('/some-url')
-//       .send({ body: 'some-body' })
-//       .set('Authorization', `Bearer ${TOKEN}`)
-//       .expect(200, done);
-//   });
-// });

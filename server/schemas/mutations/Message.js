@@ -75,15 +75,14 @@ const MessageMutation = {
         tags: args.tags,
         body: args.body,
       }).save();
-
-      return message.populate(["sender", "primary_reply"]);
+      return await message.populate(["sender", "primary_reply"]);
     },
   },
   // delete message
   deleteMessage: {
     type: MessageType,
     args: {
-      id: { type: GraphQLID },
+      id: { type: new GraphQLNonNull(GraphQLID) },
     },
     async resolve(_parent, args, context) {
       // A list of models(users) that are allowed for this request
@@ -111,6 +110,7 @@ const MessageMutation = {
         throw new Error("User is not authorized for this request.");
       }
 
+      // delete the message, return and populate the massege deleted
       return await Message.findByIdAndRemove(args.id).populate([
         "sender",
         "primary_reply",
@@ -121,6 +121,7 @@ const MessageMutation = {
   updateMessage: {
     type: MessageType,
     args: {
+      id: { type: new GraphQLNonNull(GraphQLID) },
       primary_reply: { type: GraphQLString },
       secondary_reply: { type: GraphQLString },
       tags: { type: new GraphQLList(GraphQLString) },
@@ -152,16 +153,20 @@ const MessageMutation = {
         throw new Error("User is not authorized for this request.");
       }
 
-      // A list of models(resorce) that are allowed for this request
-      const allowedReplyModels = [Message, Issue, Ticket];
+      let allowedReply;
+      if (args.primary_reply) {
+        // A list of models(resorce) that are allowed for this request
+        const allowedReplyModels = [Message, Issue, Ticket];
 
-      // check ...
-      const allowedReply = allowedReplyModels(
-        allowedReplyModels,
-        args.primary_reply
-      );
-      if (allowedReply === 1) {
-        throw new Error("The message does not exists.");
+        // check ...
+        allowedReply = await getAllowReply(
+          allowedReplyModels,
+          args.primary_reply
+        );
+
+        if (args.allowedReply === 1) {
+          throw new Error("The message does not exists.");
+        }
       }
 
       return await Message.findByIdAndUpdate(
@@ -170,8 +175,14 @@ const MessageMutation = {
           $set: {
             sender: authenticatedUser.authenticatedUser._id,
             sender_on_model: authenticatedUser.authenticateduserOnModel,
-            primary_reply: allowedReply.allowedReply._id,
-            primary_reply_on_model: allowedReply.allowedReplyOnModel,
+            primary_reply:
+              args.primary_reply !== undefined
+                ? allowedReply.allowedReply._id
+                : args.primary_reply,
+            primary_reply_on_model:
+              args.primary_reply !== undefined
+                ? allowedReply.allowedReplyOnModel
+                : args.primary_reply,
             secondary_reply: args.secondary_reply,
             tags: args.tags,
             body: args.body,
