@@ -864,7 +864,7 @@ describe("GraphQL", () => {
   });
 
   // Delete message [DEFAULT_ADMIN_TOKEN]
-  // Note: primary_reply doen't populate in the testing but works in using thunder client (Yet to fix)
+  // Note: primary_reply doen't populate in the testing but works in using thunder client (Yet to fix).
   it("Delete message [DEFAULT_ADMIN_TOKEN]", (done) => {
     request
       .post("graphql")
